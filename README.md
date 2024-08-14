@@ -4,9 +4,9 @@
 
 Survey App est une application JavaScript simple permettant de gérer les fiches d'enquête de satisfaction des clients. L'application utilise une base de données MongoDB pour stocker les données et permet d'effectuer des opérations CRUD (Create, Read, Update, Delete) sur ces fiches.
 
-## Modules
+## Documentation des Fonctions 
 
-### `fichierModule`
+### fichierModule
 
 #### `insertFile(fileData)`
 Insère un nouveau fichier dans la collection `fichiers`.
@@ -30,7 +30,7 @@ Supprime un fichier de la collection `fichiers`.
 
 - **Paramètre :** `fileId` - Identifiant du fichier à supprimer.
 
-### `questionModule`
+### questionModule
 
 #### `insertQuestion(fileName, questionData)`
 Insère une nouvelle question dans la collection `questions`.
@@ -56,7 +56,7 @@ Supprime une question de la collection `questions`.
 
 - **Paramètre :** `questionId` - Identifiant de la question à supprimer.
 
-### `reponseModule`
+### reponseModule 
 
 #### `insertReponse(questionId, reponseData)`
 Insère une nouvelle réponse pour une question dans la collection `reponses`.
