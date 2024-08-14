@@ -97,7 +97,7 @@ Suivez ces étapes pour configurer le projet sur votre machine locale :
 1. **Clonez le repository :**
 
     ```bash
-    git clone <URL_DU_REPOSITORY>
+    git clone https://github.com/Zoubeir7/abc-survey-app.git
     ```
 
 2. **Accédez au dossier du projet :**
