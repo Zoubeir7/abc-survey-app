@@ -83,6 +83,10 @@ Supprime une réponse de la collection `reponses`.
 
 - **Paramètre :** `reponseId` - Identifiant de la réponse à supprimer.
 
+#### `index.js`
+:est l'entrée principale de l'application. Il contient une fonction principale main qui englobe l'appel de toutes les fonctions des différents modules.
+
+
 ## Prérequis
 
 Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
