@@ -6,12 +6,7 @@ const { insertReponse, getReponsesByQuestionId, updateReponse, deleteReponse } =
 
 async function main() {
     try {
-
         const db = await connectToDatabase();
-
-
-        console.log('Opérations sur la base de données peuvent être effectuées ici.');
-
 
     } catch (error) {
         console.error('Erreur lors de l\'exécution du script principal', error);
@@ -19,7 +14,6 @@ async function main() {
 }
 
 
-//Exemple de données pour le fichier
 const fileData = {
     fichiers: [
         {
@@ -34,34 +28,46 @@ const fileData = {
     ]
 };
 
-// Fonction pour tester les opérations CRUD pour le module fichiherOperations
 
 async function testFileOperations() {
-    try {
-        // Insérer le fichier
-        console.log("Insertion du fichier...");
-        await insertFile(fileData);
+    const db = await connectToDatabase();
+    const collection = db.collection('fichiers');
 
-        // Afficher tous les fichiers
+    try {
+
+        console.log("Vérification de l'existence du fichier...");
+        const existingFile = await collection.findOne({ 'fichiers.name': fileData.fichiers[0].name });
+        if (existingFile) {
+            console.log(`Le fichier '${fileData.fichiers[0].name}' existe déjà.`);
+        }
+
+        else {
+
+            console.log("Insertion du fichier...");
+            const insertResult = await insertFile(fileData);
+            console.log(`Fichier inséré avec l'ID: ${insertResult.insertedId}`);
+            await insertQuestion(fichier, questionData);
+        }
+
+
         console.log("Affichage des fichiers...");
         const files = await getAllFiles();
         console.log(JSON.stringify(files, null, 2));
 
 
-        //Mettre à jour le fichier
+
         console.log("Mise à jour du fichier...");
         const updatedData = {
             "fichiers.0.description": "Description mise à jour de l'enquête."
         };
-        await updateFile("a", "ba");
+        await updateFile("Enquête de Satisfaction 001", "Enquête de Satisfaction 002");
 
 
-        //Supprimer le fichier
         console.log("Suppression du fichier...");
         await deleteFile("");
 
-
-    } catch (err) {
+    }
+    catch (err) {
         console.error("Erreur lors de l'opération sur les fichiers:", err);
     }
 }
@@ -69,7 +75,7 @@ async function testFileOperations() {
 testFileOperations();
 
 
-// Exemple de données pour la question
+
 const questionData = {
     questionId: 3,
     title: "Comment évalueriez-vous notre service ?",
@@ -81,22 +87,33 @@ const questionData = {
     }
 };
 
-// Exemple de nom de fichier auquel la question est associée
-const fichier = "Enquête de Satisfaction 001";
 
-// Fonction pour tester les opérations CRUD sur les questions
+const fichier = "Enquête de Satisfaction 001";
 async function testQuestionOperations() {
     try {
-        // Insérer la question
-        console.log("Insertion de la question...");
-        await insertQuestion(fichier, questionData);
+        const db = await connectToDatabase();
+        const collection = db.collection('questions');
 
-        // Afficher toutes les questions
-        console.log("Affichage des questions...");
+        const existingQuestion = await collection.findOne({ questionId: questionData.questionId });
+
+        if (existingQuestion) {
+            console.log(`La question avec l'ID '${questionData.questionId}' existe déjà.`);
+            return;
+        } else {
+
+            const questionWithFileName = {
+                ...questionData,
+                fileName: fichier
+            };
+
+            const result = await collection.insertOne(questionWithFileName);
+            console.log(`Question insérée avec l'ID: ${result.insertedId}`);
+        }
+
         const questions = await getAllQuestions();
         console.log(questions);
 
-        // Mettre à jour la question
+
         const newQuestionData = {
             title: "Comment évalueriez-vous notre service client ?",
             type: "rating",
@@ -107,22 +124,21 @@ async function testQuestionOperations() {
             }
         };
         console.log("Mise à jour de la question...");
-        await updateQuestion(3, newQuestionData); // Remplacé 1 par 3 pour correspondre au questionId
+        await updateQuestion(3, newQuestionData);
 
-        // Supprimer la question
         console.log("Suppression de la question...");
-        await deleteQuestion(3); // Remplacé 1 par 3 pour correspondre au questionId
+        await deleteQuestion();
 
-    } catch (err) {
+    }
+    catch (err) {
         console.error("Erreur lors de l'opération sur les questions:", err);
     }
 }
 
 
+
+
 testQuestionOperations();
-
-
-
 
 
 const reponseData = {
@@ -130,22 +146,22 @@ const reponseData = {
     title: "Très satisfait"
 };
 
-// Exemple d'ID de question auquel la réponse est associée
+
 const questionId = 3;
 
-// Fonction pour tester les opérations CRUD sur les réponses
+
 async function testReponseOperations() {
     try {
-        // Insérer la réponse
+
         console.log("Insertion de la réponse...");
         await insertReponse(questionId, reponseData);
 
-        // Afficher toutes les réponses pour une question spécifique
+
         console.log("Affichage de toutes les réponses pour la question ID 3...");
         const reponses = await getReponsesByQuestionId(questionId);
-        console.log(JSON.stringify(reponses, null, 2)); 
+        console.log(JSON.stringify(reponses, null, 2));
 
-        // Mettre à jour la réponse
+
         const newReponseData = {
             title: "Satisfait"
         };
@@ -154,7 +170,6 @@ async function testReponseOperations() {
 
 
 
-        // Supprimer la réponse
         console.log("Suppression de la réponse...");
         await deleteReponse(1);
 

@@ -1,37 +1,27 @@
 const { connectToDatabase } = require('./config/database');
 
-// Fonction pour insérer une question dans la collection 'questions'
+
 async function insertQuestion(fileName, questionData) {
     const db = await connectToDatabase();
     const collection = db.collection('questions');
 
-    // Vérifie si une question avec le même ID existe déjà
-    const existingQuestion = await collection.findOne({ questionId: questionData.questionId });
-
-    if (existingQuestion) {
-        console.log(`La question avec l'ID '${questionData.questionId}' existe déjà.`);
-        return;
-    }
-
-    // Ajouter le nom du fichier et insérer la question
     const questionWithFileName = {
         ...questionData,
-        fileName: fileName // Associe la question au fichier
+        fileName: fileName
     };
 
     const result = await collection.insertOne(questionWithFileName);
     console.log(`Question insérée avec l'ID: ${result.insertedId}`);
 }
 
-// Fonction pour afficher toutes les questions de la collection 'questions'
+
 async function getAllQuestions() {
     const db = await connectToDatabase();
     const collection = db.collection('questions');
 
-    // Récupérer toutes les questions
+
     const questions = await collection.find().toArray();
 
-    // Afficher toutes les questions
     console.log("Questions dans la collection 'questions':");
     questions.forEach(question => {
         console.log(JSON.stringify(question, null, 2));
