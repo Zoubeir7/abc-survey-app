@@ -4,88 +4,144 @@
 
 Survey App est une application JavaScript simple permettant de gérer les fiches d'enquête de satisfaction des clients. L'application utilise une base de données MongoDB pour stocker les données et permet d'effectuer des opérations CRUD (Create, Read, Update, Delete) sur ces fiches.
 
-## Documentation des Fonctions 
+## Documentation des Fonctions
 
-### fichierModule
+
+### `fichierModule`
 
 #### `insertFile(fileData)`
-Insère un nouveau fichier dans la collection `fichiers`.
-
-- **Paramètre :** `fileData` - Données du fichier à insérer.
+- **Description :** Insère un nouveau fichier dans la collection `fichiers`.
+- **Paramètre :** 
+  - `fileData` (Object) - Les données du fichier à insérer.
+    ```json
+    {
+      "fichiers": [
+        {
+          "name": "string",
+          "description": "string",
+          "createdAt": "ISODate",
+          "createdBy": {
+            "employeeName": "string",
+            "employeeRole": "string"
+          }
+        }
+      ]
+    }
+    ```
 
 #### `getAllFiles()`
-Récupère tous les fichiers de la collection `fichiers`.
-
-- **Retourne :** Liste de tous les fichiers.
+- **Description :** Récupère tous les fichiers de la collection `fichiers`.
+- **Retourne :** 
+  - `Array` - Liste de tous les fichiers.
+    ```json
+    [
+      {
+        "name": "string",
+        "description": "string",
+        "createdAt": "ISODate",
+        "createdBy": {
+          "employeeName": "string",
+          "employeeRole": "string"
+        }
+      }
+    ]
+    ```
 
 #### `updateFile(fileId, updateData)`
-Met à jour un fichier existant dans la collection `fichiers`.
-
-- **Paramètres :**
-  - `fileId` - Identifiant du fichier à mettre à jour.
-  - `updateData` - Données à mettre à jour.
+- **Description :** Met à jour un fichier existant dans la collection `fichiers`.
+- **Paramètres :** 
+  - `fileId` (String) - Identifiant du fichier à mettre à jour.
+  - `updateData` (Object) - Données à mettre à jour.
 
 #### `deleteFile(fileId)`
-Supprime un fichier de la collection `fichiers`.
+- **Description :** Supprime un fichier de la collection `fichiers`.
+- **Paramètre :** 
+  - `fileId` (String) - Identifiant du fichier à supprimer.
 
-- **Paramètre :** `fileId` - Identifiant du fichier à supprimer.
-
-### questionModule
+### `questionModule`
 
 #### `insertQuestion(fileName, questionData)`
-Insère une nouvelle question dans la collection `questions`.
-
-- **Paramètres :**
-  - `fileName` - Nom du fichier associé.
-  - `questionData` - Données de la question à insérer (inclut `questionId`).
+- **Description :** Insère une nouvelle question dans la collection `questions`.
+- **Paramètres :** 
+  - `fileName` (String) - Nom du fichier associé.
+  - `questionData` (Object) - Données de la question à insérer, y compris `questionId`.
+    ```json
+    {
+      "questionId": "number",
+      "title": "string",
+      "type": "string",
+      "options": {
+        "minValue": "number",
+        "maxValue": "number",
+        "step": "number"
+      }
+    }
+    ```
 
 #### `getAllQuestions()`
-Récupère toutes les questions de la collection `questions`.
-
-- **Retourne :** Liste de toutes les questions.
+- **Description :** Récupère toutes les questions de la collection `questions`.
+- **Retourne :** 
+  - `Array` - Liste de toutes les questions.
+    ```json
+    [
+      {
+        "questionId": "number",
+        "title": "string",
+        "type": "string",
+        "options": {
+          "minValue": "number",
+          "maxValue": "number",
+          "step": "number"
+        }
+      }
+    ]
+    ```
 
 #### `updateQuestion(questionId, newQuestionData)`
-Met à jour une question existante dans la collection `questions`.
-
-- **Paramètres :**
-  - `questionId` - Identifiant de la question à mettre à jour.
-  - `newQuestionData` - Données mises à jour de la question.
+- **Description :** Met à jour une question existante dans la collection `questions`.
+- **Paramètres :** 
+  - `questionId` (Number) - Identifiant de la question à mettre à jour.
+  - `newQuestionData` (Object) - Données mises à jour de la question.
 
 #### `deleteQuestion(questionId)`
-Supprime une question de la collection `questions`.
+- **Description :** Supprime une question de la collection `questions`.
+- **Paramètre :** 
+  - `questionId` (Number) - Identifiant de la question à supprimer.
 
-- **Paramètre :** `questionId` - Identifiant de la question à supprimer.
-
-### reponseModule 
+### `reponseModule`
 
 #### `insertReponse(questionId, reponseData)`
-Insère une nouvelle réponse pour une question dans la collection `reponses`.
-
-- **Paramètres :**
-  - `questionId` - Identifiant de la question associée.
-  - `reponseData` - Données de la réponse à insérer (inclut `reponseId`).
+- **Description :** Insère une nouvelle réponse pour une question dans la collection `reponses`.
+- **Paramètres :** 
+  - `questionId` (Number) - Identifiant de la question associée.
+  - `reponseData` (Object) - Données de la réponse à insérer, y compris `reponseId`.
+    ```json
+    {
+      "reponseId": "number",
+      "title": "string"
+    }
+    ```
 
 #### `getReponsesByQuestionId(questionId)`
-Récupère toutes les réponses pour une question spécifique.
-
-- **Paramètre :** `questionId` - Identifiant de la question.
-- **Retourne :** Liste des réponses pour la question spécifiée.
+- **Description :** Récupère toutes les réponses pour une question spécifique.
+- **Paramètre :** 
+  - `questionId` (Number) - Identifiant de la question.
+- **Retourne :** 
+  - `Array` - Liste des réponses pour la question spécifiée.
 
 #### `updateReponse(reponseId, newReponseData)`
-Met à jour une réponse existante dans la collection `reponses`.
-
-- **Paramètres :**
-  - `reponseId` - Identifiant de la réponse à mettre à jour.
-  - `newReponseData` - Données mises à jour de la réponse.
+- **Description :** Met à jour une réponse existante dans la collection `reponses`.
+- **Paramètres :** 
+  - `reponseId` (Number) - Identifiant de la réponse à mettre à jour.
+  - `newReponseData` (Object) - Données mises à jour de la réponse.
 
 #### `deleteReponse(reponseId)`
-Supprime une réponse de la collection `reponses`.
+- **Description :** Supprime une réponse de la collection `reponses`.
+- **Paramètre :** 
+  - `reponseId` (Number) - Identifiant de la réponse à supprimer.
 
-- **Paramètre :** `reponseId` - Identifiant de la réponse à supprimer.
-
-#### `index.js`
-:est l'entrée principale de l'application. Il contient une fonction principale main qui englobe l'appel de toutes les fonctions des différents modules.
-
+### `index`
+- **Description :**est l'entrée principale de l'application. Il contient une fonction principale main qui englobe l'appel de toutes les fonctions des différents modules
 
 ## Prérequis
 
