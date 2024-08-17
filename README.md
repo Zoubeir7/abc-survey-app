@@ -24,7 +24,7 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
 #### `getAllFiles()`
 - **Description :** Récupère tous les fichiers de la collection `fichiers`.
 - **Retourne :** 
-  - `Array` - Liste de tous les fichiers.
+  - `Array` - la fonction retourne un table de Liste de tous les fichiers.
     ```json
     [
       {
@@ -51,23 +51,17 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
       } )`
 - **Description :** Met à jour un fichier existant dans la collection `fichiers`.
 - **Paramètres :** 
-  - `fileId` (String) - nom du fichier à mettre à jour.
-  - `updateData` (Object) - Données à mettre à jour.
+  - `filename` : nom du fichier à mettre à jour.
+  - `updateData`: Données à mettre à jour.
 
-#### `deleteFile(fileId)`
+#### `deleteFile("filename":"String")`
 - **Description :** Supprime un fichier de la collection `fichiers`.
 - **Paramètre :** 
-  - `fileId` (String) - Identifiant du fichier à supprimer.
+  - `filename` Identifiant du fichier à supprimer.
 
 ### `questionModule`
 
-#### `insertQuestion(fileName, questionData)`
-- **Description :** Insère une nouvelle question dans la collection `questions`.
-- **Paramètres :** 
-  - `fileName` (String) - Nom du fichier associé.
-  - `questionData` (Object) - Données de la question à insérer, y compris `questionId`.
-    ```json
-    {
+#### `insertQuestion("fileName":"String", {
       "questionId": "number",
       "title": "string",
       "type": "string",
@@ -75,9 +69,12 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
         "minValue": "number",
         "maxValue": "number",
         "step": "number"
-      }
-    }
-    ```
+      })`
+- **Description :** Insère une nouvelle question dans la collection `questions`.
+- **Paramètres :** 
+  - `fileName` (String) - Nom du fichier associé.
+  - `questionData` (Object) - Données de la question à insérer, y compris `questionId`.
+    
 
 #### `getAllQuestions()`
 - **Description :** Récupère toutes les questions de la collection `questions`.
@@ -92,57 +89,74 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
         "options": {
           "minValue": "number",
           "maxValue": "number",
-          "step": "number"
+          "step": "number",
+          "fileName":"String"
         }
       }
     ]
     ```
 
-#### `updateQuestion(questionId, newQuestionData)`
+#### `updateQuestion (questionId:"String",  {
+        "questionId": "number",
+        "title": "string",
+        "type": "string",
+        "options": {
+          "minValue": "number",
+          "maxValue": "number",
+          "step": "number",}})`
+
 - **Description :** Met à jour une question existante dans la collection `questions`.
 - **Paramètres :** 
-  - `questionId` (Number) - Identifiant de la question à mettre à jour.
-  - `newQuestionData` (Object) - Données mises à jour de la question.
+  - `questionId` Identifiant de la question à mettre à jour.
+  - `newQuestionData` Données mises à jour de la question qui sont un objet.
 
-#### `deleteQuestion(questionId)`
+#### `deleteQuestion(questionId: Number)`
 - **Description :** Supprime une question de la collection `questions`.
 - **Paramètre :** 
-  - `questionId` (Number) - Identifiant de la question à supprimer.
+  - `questionId` Identifiant de la question à supprimer.
 
 ### `reponseModule`
 
-#### `insertReponse(questionId, reponseData)`
-- **Description :** Insère une nouvelle réponse pour une question dans la collection `reponses`.
-- **Paramètres :** 
-  - `questionId` (Number) - Identifiant de la question associée.
-  - `reponseData` (Object) - Données de la réponse à insérer, y compris `reponseId`.
-    ```json
-    {
+#### `insertReponse(questionId:Number, {
       "reponseId": "number",
       "title": "string"
-    }
-    ```
+    })`
+- **Description :** Insère une nouvelle réponse pour une question dans la collection `reponses`.
+- **Paramètres :** 
+  - `questionId`  Identifiant de la question associée.
+  - `reponseData` Données de la réponse à insérer, y compris `reponseId`.
+   
 
-#### `getReponsesByQuestionId(questionId)`
+#### `getReponsesByQuestionId(questionId:Number)`
 - **Description :** Récupère toutes les réponses pour une question spécifique.
 - **Paramètre :** 
-  - `questionId` (Number) - Identifiant de la question.
+  - `questionId` Identifiant de la question.
 - **Retourne :** 
   - `Array` - Liste des réponses pour la question spécifiée.
+  {
+    "reponseId":"number" ,
+    title: "string",
+    "questionId":"number"
+}
 
-#### `updateReponse(reponseId, newReponseData)`
+
+#### `updateReponse(reponseId:Number, {
+            title: "Satisfait"
+        };)`
 - **Description :** Met à jour une réponse existante dans la collection `reponses`.
 - **Paramètres :** 
-  - `reponseId` (Number) - Identifiant de la réponse à mettre à jour.
-  - `newReponseData` (Object) - Données mises à jour de la réponse.
+  - `reponseId` () - Identifiant de la réponse à mettre à jour.
+  - `newReponseData` (Object) Données mises à jour de la réponse.
 
-#### `deleteReponse(reponseId)`
+#### `deleteReponse(reponseId:Number)`
 - **Description :** Supprime une réponse de la collection `reponses`.
 - **Paramètre :** 
-  - `reponseId` (Number) - Identifiant de la réponse à supprimer.
+  - `reponseId`  Identifiant de la réponse à supprimer.
 
 ### `index`
-- **Description :**est l'entrée principale de l'application. Il contient une fonction principale main qui englobe l'appel de toutes les fonctions des différents modules
+
+- **Description :** - est l'entrée principale de l'application. Il contient une fonction principale main qui englobe l'appel de toutes les fonctions des différents modules
+
 
 ## Prérequis
 

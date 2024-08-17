@@ -4,14 +4,6 @@ const { insertQuestion, getAllQuestions, updateQuestion, deleteQuestion } = requ
 const { insertReponse, getReponsesByQuestionId, updateReponse, deleteReponse } = require('./reponseModule');
 
 
-async function main() {
-    try {
-        const db = await connectToDatabase();
-
-    } catch (error) {
-        console.error('Erreur lors de l\'exécution du script principal', error);
-    }
-}
 
 
 const fileData = {
@@ -29,50 +21,13 @@ const fileData = {
 };
 
 
-async function testFileOperations() {
-    const db = await connectToDatabase();
-    const collection = db.collection('fichiers');
-
-    try {
-
-        console.log("Vérification de l'existence du fichier...");
-        const existingFile = await collection.findOne({ 'fichiers.name': fileData.fichiers[0].name });
-        if (existingFile) {
-            console.log(`Le fichier '${fileData.fichiers[0].name}' existe déjà.`);
-        }
-
-        else {
-
-            console.log("Insertion du fichier...");
-            const insertResult = await insertFile(fileData);
-            console.log(`Fichier inséré avec l'ID: ${insertResult.insertedId}`);
-             await insertQuestion(fichier, questionData);
-        }
+const reponseData = {
+    reponseId: 1,
+    title: "Très satisfait"
+};
 
 
-        console.log("Affichage des fichiers...");
-        const files = await getAllFiles();
-        console.log(JSON.stringify(files, null, 2));
-
-
-
-        console.log("Mise à jour du fichier...");
-        const updatedData = {
-            "fichiers.0.description": "Description mise à jour de l'enquête."
-        };
-        await updateFile("Enquête de Satisfaction 001", "Enquête de Satisfaction 002");
-
-
-        console.log("Suppression du fichier...");
-        await deleteFile("");
-
-    }
-    catch (err) {
-        console.error("Erreur lors de l'opération sur les fichiers:", err);
-    }
-}
-
-testFileOperations();
+const questionId = 3;
 
 
 
@@ -89,7 +44,56 @@ const questionData = {
 
 
 const fichier = "Enquête de Satisfaction 001";
-async function testQuestionOperations() {
+
+
+const newQuestionData = {
+    title: "Comment évalueriez-vous notre service client ?",
+    type: "rating",
+    options: {
+        minValue: 1,
+        maxValue: 10,
+        step: 1
+    }
+};
+
+
+
+async function main() {
+    const db = await connectToDatabase();
+    const collection = db.collection('fichiers');
+
+    try {
+
+        const existingFile = await collection.findOne({ 'fichiers.name': fileData.fichiers[0].name });
+        if (existingFile) {
+            console.log(`Le fichier '${fileData.fichiers[0].name}' existe déjà.`);
+        }
+
+        else {
+
+
+            const insertResult = await insertFile(fileData);
+            console.log(`Fichier inséré avec l'ID: ${insertResult.insertedId}`);
+            await insertQuestion(fichier, questionData);
+        }
+
+        const files = await getAllFiles();
+        console.log(JSON.stringify(files, null, 2));
+
+
+        const updatedData = {
+            "fichiers.0.description": "Description mise à jour de l'enquête."
+        };
+        await updateFile("Enquête de Satisfaction 001", "Enquête de Satisfaction 002");
+
+        await deleteFile("");
+
+    }
+    catch (err) {
+        console.error("Erreur lors de l'opération sur les fichiers:", err);
+    }
+
+    //
     try {
         const db = await connectToDatabase();
         const collection = db.collection('questions');
@@ -113,51 +117,23 @@ async function testQuestionOperations() {
         const questions = await getAllQuestions();
         console.log(questions);
 
-
-        const newQuestionData = {
-            title: "Comment évalueriez-vous notre service client ?",
-            type: "rating",
-            options: {
-                minValue: 1,
-                maxValue: 10,
-                step: 1
-            }
-        };
-        console.log("Mise à jour de la question...");
         await updateQuestion(3, newQuestionData);
 
-        console.log("Suppression de la question...");
+
         await deleteQuestion();
 
     }
     catch (err) {
         console.error("Erreur lors de l'opération sur les questions:", err);
     }
-}
 
-
-
-
-testQuestionOperations();
-
-
-const reponseData = {
-    reponseId: 1,
-    title: "Très satisfait"
-};
-
-
-const questionId = 3;
-
-
-async function testReponseOperations() {
     try {
 
-        console.log("Insertion de la réponse...");
+
         await insertReponse(questionId, reponseData);
 
 
-        console.log("Affichage de toutes les réponses pour la question ID 3...");
+
         const reponses = await getReponsesByQuestionId(questionId);
         console.log(JSON.stringify(reponses, null, 2));
 
@@ -165,22 +141,22 @@ async function testReponseOperations() {
         const newReponseData = {
             title: "Satisfait"
         };
-        console.log("Mise à jour de la réponse...");
+
         await updateReponse(1, newReponseData);
 
 
 
-        console.log("Suppression de la réponse...");
         await deleteReponse(1);
 
 
     } catch (err) {
         console.error("Erreur lors de l'opération sur les réponses:", err);
     }
+
+
 }
 
 
-testReponseOperations();
 
 
 main();

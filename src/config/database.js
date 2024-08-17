@@ -7,18 +7,20 @@ async function connectToDatabase() {
     try {
 
         await client.connect();
-        console.log('Connexion réussie à MongoDB');
+
 
         const dbName = 'satisfaction_survey';
         const db = client.db(dbName);
 
-        console.log(`Connexion à la base de données : ${dbName}`);
+        console.log(`Connexion à la base de données : ${dbName} reussi`);
 
         return db;
     } catch (error) {
         console.error('Erreur lors de la connexion à MongoDB', error);
         throw error;
     }
+
+
 }
 
 
