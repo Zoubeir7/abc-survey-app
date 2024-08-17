@@ -8,18 +8,18 @@ async function insertReponse(questionId, reponseData) {
 
     reponseData.questionId = questionId;
 
+  
+    // const existingReponse = await collection.findOne({
+    //     questionId: questionId,
+    //     title: reponseData.title
+    // });
 
-    const existingReponse = await collection.findOne({
-        questionId: questionId,
-        title: reponseData.title
-    });
+    // if (existingReponse) {
+    //     console.log(`Une réponse avec le titre '${reponseData.title}' existe déjà pour la question ID '${questionId}'.`);
+    //     return;
+    // }
 
-    if (existingReponse) {
-        console.log(`Une réponse avec le titre '${reponseData.title}' existe déjà pour la question ID '${questionId}'.`);
-        return;
-    }
-
-
+ 
     await collection.insertOne(reponseData);
     console.log(`Réponse insérée avec l'ID: ${reponseData.reponseId}`);
 }
@@ -62,7 +62,7 @@ async function deleteReponse(reponseId) {
     const db = await connectToDatabase();
     const collection = db.collection('reponses');
 
-
+    // Assurez-vous que `reponseId` est bien un nombre ici
     const result = await collection.deleteOne({ reponseId: Number(reponseId) });
 
     if (result.deletedCount === 0) {

@@ -9,25 +9,17 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
 
 ### `fichierModule`
 
-#### `insertFile(fileData)`
-- **Description :** Insère un nouveau fichier dans la collection `fichiers`.
-- **Paramètre :** 
-  - `fileData` (Object) - Les données du fichier à insérer.
-    ```json
-    {
-      "fichiers": [
-        {
+#### `insertFile({
           "name": "string",
           "description": "string",
           "createdAt": "ISODate",
           "createdBy": {
             "employeeName": "string",
             "employeeRole": "string"
-          }
-        }
-      ]
-    }
-    ```
+          })`
+- **Description :** Insère un nouveau fichier dans la collection `fichiers`.
+- **Paramètre :** : la fonction prend en parametre un object
+ 
 
 #### `getAllFiles()`
 - **Description :** Récupère tous les fichiers de la collection `fichiers`.
@@ -47,10 +39,19 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
     ]
     ```
 
-#### `updateFile(fileId, updateData)`
+#### `updateFile( "name": "string",   
+{
+        "name": "string",
+        "description": "string",
+        "createdAt": "ISODate",
+        "createdBy": {
+          "employeeName": "string",
+          "employeeRole": "string"
+        }
+      } )`
 - **Description :** Met à jour un fichier existant dans la collection `fichiers`.
 - **Paramètres :** 
-  - `fileId` (String) - Identifiant du fichier à mettre à jour.
+  - `fileId` (String) - nom du fichier à mettre à jour.
   - `updateData` (Object) - Données à mettre à jour.
 
 #### `deleteFile(fileId)`
@@ -163,7 +164,7 @@ Suivez ces étapes pour configurer le projet sur votre machine locale :
 2. **Accédez au dossier du projet :**
 
     ```bash
-    cd survey-app
+    cd abc-survey-app
     ```
 
 3. **Installez les dépendances :**
@@ -185,6 +186,7 @@ Pour démarrer l'application, exécutez la commande suivante :
 npm start
 ```
 
-## Authors
+## Auteur
 
-Zoubeir Ba
+[Zoubeir Ba](https://github.com/Zoubeir7)
+

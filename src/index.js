@@ -46,7 +46,7 @@ async function testFileOperations() {
             console.log("Insertion du fichier...");
             const insertResult = await insertFile(fileData);
             console.log(`Fichier inséré avec l'ID: ${insertResult.insertedId}`);
-            await insertQuestion(fichier, questionData);
+             await insertQuestion(fichier, questionData);
         }
 
 
