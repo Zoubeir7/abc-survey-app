@@ -39,7 +39,7 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
     ]
     ```
 
-#### `updateFile( "name": "string",   
+#### `updateFile( fileName: "string",   
 {
         "name": "string",
         "description": "string",
@@ -54,7 +54,7 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
   - `filename` : nom du fichier à mettre à jour.
   - `updateData`: Données à mettre à jour.
 
-#### `deleteFile("filename":"String")`
+#### `deleteFile(filename:"string")`
 - **Description :** Supprime un fichier de la collection `fichiers`.
 - **Paramètre :** 
   - `filename` Identifiant du fichier à supprimer.
@@ -96,7 +96,7 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
     ]
     ```
 
-#### `updateQuestion (questionId:"String",  {
+#### `updateQuestion (questionId:"string",  {
         "questionId": "number",
         "title": "string",
         "type": "string",
@@ -117,7 +117,7 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
 
 ### `reponseModule`
 
-#### `insertReponse(questionId:Number, {
+#### `insertReponse(questionId:number, {
       "reponseId": "number",
       "title": "string"
     })`
@@ -127,7 +127,7 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
   - `reponseData` Données de la réponse à insérer, y compris `reponseId`.
    
 
-#### `getReponsesByQuestionId(questionId:Number)`
+#### `getReponsesByQuestionId(questionId:number)`
 - **Description :** Récupère toutes les réponses pour une question spécifique.
 - **Paramètre :** 
   - `questionId` Identifiant de la question.
@@ -140,7 +140,7 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
 }
 
 
-#### `updateReponse(reponseId:Number, {
+#### `updateReponse(reponseId:number, {
             title: "Satisfait"
         };)`
 - **Description :** Met à jour une réponse existante dans la collection `reponses`.
@@ -148,7 +148,7 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
   - `reponseId` () - Identifiant de la réponse à mettre à jour.
   - `newReponseData` (Object) Données mises à jour de la réponse.
 
-#### `deleteReponse(reponseId:Number)`
+#### `deleteReponse(reponseId:number)`
 - **Description :** Supprime une réponse de la collection `reponses`.
 - **Paramètre :** 
   - `reponseId`  Identifiant de la réponse à supprimer.
