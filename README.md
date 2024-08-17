@@ -72,8 +72,8 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
       })`
 - **Description :** Insère une nouvelle question dans la collection `questions`.
 - **Paramètres :** 
-  - `fileName` (String) - Nom du fichier associé.
-  - `questionData` (Object) - Données de la question à insérer, y compris `questionId`.
+  - `fileName`  Nom du fichier associé.
+  - `questionData` Données de la question à insérer, y compris `questionId` .
     
 
 #### `getAllQuestions()`
@@ -108,7 +108,7 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
 - **Description :** Met à jour une question existante dans la collection `questions`.
 - **Paramètres :** 
   - `questionId` Identifiant de la question à mettre à jour.
-  - `newQuestionData` Données mises à jour de la question qui sont un objet.
+  - `newQuestionData` Données mises à jour de la question qui sont des objets.
 
 #### `deleteQuestion(questionId: Number)`
 - **Description :** Supprime une question de la collection `questions`.
@@ -124,7 +124,7 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
 - **Description :** Insère une nouvelle réponse pour une question dans la collection `reponses`.
 - **Paramètres :** 
   - `questionId`  Identifiant de la question associée.
-  - `reponseData` Données de la réponse à insérer, y compris `reponseId`.
+  - `reponseData` Données de la réponse à insérer, y compris `reponseId` qui est un Objet.
    
 
 #### `getReponsesByQuestionId(questionId:number)`
@@ -145,8 +145,8 @@ Survey App est une application JavaScript simple permettant de gérer les fiches
         };)`
 - **Description :** Met à jour une réponse existante dans la collection `reponses`.
 - **Paramètres :** 
-  - `reponseId` () - Identifiant de la réponse à mettre à jour.
-  - `newReponseData` (Object) Données mises à jour de la réponse.
+  - `reponseId`  Identifiant de la réponse à mettre à jour.
+  - `newReponseData` Données mises à jour de la réponse qui est un Objet.
 
 #### `deleteReponse(reponseId:number)`
 - **Description :** Supprime une réponse de la collection `reponses`.

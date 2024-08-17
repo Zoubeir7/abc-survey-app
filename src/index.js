@@ -29,8 +29,6 @@ const reponseData = {
 
 const questionId = 3;
 
-
-
 const questionData = {
     questionId: 3,
     title: "Comment évalueriez-vous notre service ?",
@@ -45,7 +43,6 @@ const questionData = {
 
 const fichier = "Enquête de Satisfaction 001";
 
-
 const newQuestionData = {
     title: "Comment évalueriez-vous notre service client ?",
     type: "rating",
@@ -56,7 +53,9 @@ const newQuestionData = {
     }
 };
 
-
+const newReponseData = {
+    title: "Satisfait"
+};
 
 async function main() {
     const db = await connectToDatabase();
@@ -79,7 +78,6 @@ async function main() {
 
         const files = await getAllFiles();
         console.log(JSON.stringify(files, null, 2));
-
 
         const updatedData = {
             "fichiers.0.description": "Description mise à jour de l'enquête."
@@ -129,22 +127,12 @@ async function main() {
 
     try {
 
-
         await insertReponse(questionId, reponseData);
-
-
 
         const reponses = await getReponsesByQuestionId(questionId);
         console.log(JSON.stringify(reponses, null, 2));
 
-
-        const newReponseData = {
-            title: "Satisfait"
-        };
-
         await updateReponse(1, newReponseData);
-
-
 
         await deleteReponse(1);
 
@@ -155,8 +143,6 @@ async function main() {
 
 
 }
-
-
 
 
 main();
