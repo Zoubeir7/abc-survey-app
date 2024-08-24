@@ -1,14 +1,9 @@
-const { connectToDatabase } = require('./config/database');
+const { db } = require('./config/database');
 
-
-async function insertReponse(questionId, reponseData) {
-    const db = await connectToDatabase();
+async function ajouterReponse(questionId, reponseData) {
     const collection = db.collection('reponses');
-
-
     reponseData.questionId = questionId;
 
-  
     const existingReponse = await collection.findOne({
         questionId: questionId,
         title: reponseData.title
@@ -19,30 +14,25 @@ async function insertReponse(questionId, reponseData) {
         return;
     }
 
- 
     await collection.insertOne(reponseData);
     console.log(`Réponse insérée avec l'ID: ${reponseData.reponseId}`);
 }
 
-
-async function getReponsesByQuestionId(questionId) {
-    const db = await connectToDatabase();
+async function listerReponses(questionId) {
     const collection = db.collection('reponses');
-
     const reponses = await collection.find({ questionId: questionId }).toArray();
 
     console.log(`Réponses pour la question ID '${questionId}':`);
-    reponses.forEach(reponse => {
-        console.log(JSON.stringify(reponse, null, 2));
 
+  
+    reponses.forEach(reponse => {
+        console.log(JSON.parse(JSON.stringify(reponse)));
     });
 
     return reponses;
 }
 
-
-async function updateReponse(reponseId, updatedData) {
-    const db = await connectToDatabase();
+async function modifierReponse(reponseId, updatedData) {
     const collection = db.collection('reponses');
 
     const result = await collection.updateOne(
@@ -55,14 +45,12 @@ async function updateReponse(reponseId, updatedData) {
         return;
     }
 
-    console.log(`Réponse avec l'ID '${reponseId}' mise à jour avec succès.`);
+    console.log(`Réponse a mise à jour avec succès.`);
 }
 
-async function deleteReponse(reponseId) {
-    const db = await connectToDatabase();
+async function supprimerReponse(reponseId) {
     const collection = db.collection('reponses');
 
-    // Assurez-vous que `reponseId` est bien un nombre ici
     const result = await collection.deleteOne({ reponseId: Number(reponseId) });
 
     if (result.deletedCount === 0) {
@@ -70,12 +58,12 @@ async function deleteReponse(reponseId) {
         return;
     }
 
-    console.log(`Réponse avec l'ID '${reponseId}' supprimée avec succès.`);
+    console.log(`Réponse  supprimée avec succès.`);
 }
 
 module.exports = {
-    insertReponse,
-    getReponsesByQuestionId,
-    updateReponse,
-    deleteReponse
+    ajouterReponse,
+    listerReponses,
+    modifierReponse,
+    supprimerReponse
 };

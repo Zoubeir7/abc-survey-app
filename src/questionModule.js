@@ -1,73 +1,80 @@
-const { connectToDatabase } = require('./config/database');
+const { client, db } = require("./config/database");
+
+const collectionQuestion = db.collection("questions");
 
 
-async function insertQuestion(fileName, questionData) {
-    const db = await connectToDatabase();
-    const collection = db.collection('questions');
-
-    const questionWithFileName = {
-        ...questionData,
-        fileName: fileName
-    };
-
-    const result = await collection.insertOne(questionWithFileName);
-    console.log(`Question insérée avec l'ID: ${result.insertedId}`);
+async function generateUniqueQuestionId(collectionQuestion) {
+    const lastQuestion = await collectionQuestion
+        .find({})
+        .sort({ questionId: -1 })
+        .limit(1)
+        .toArray();
+    return lastQuestion.length > 0 ? lastQuestion[0].questionId + 1 : 1;
 }
 
-
-async function getAllQuestions() {
-    const db = await connectToDatabase();
-    const collection = db.collection('questions');
-
-
-    const questions = await collection.find().toArray();
-
-    console.log("Questions dans la collection 'questions':");
-    questions.forEach(question => {
-        console.log(JSON.stringify(question, null, 2));
-    });
-
-    return questions;
-}
-
-// Fonction pour mettre à jour une question dans la collection 'questions'
-async function updateQuestion(questionId, newQuestionData) {
-    const db = await connectToDatabase();
-    const collection = db.collection('questions');
-
-    // Mise à jour de la question basée sur l'ID
-    const result = await collection.updateOne(
-        { questionId: questionId },
-        { $set: newQuestionData }
-    );
-
-    if (result.matchedCount === 0) {
-        console.log(`Aucune question trouvée avec l'ID '${questionId}'`);
-        return;
+async function ajouterQuestion(document) {
+    try {
+        document.questionId = await generateUniqueQuestionId(collectionQuestion);
+        await collectionQuestion.insertOne(document);
+        console.log(`Le document ${document.questionId} a été ajouté avec succès.`);
+    } catch (e) {
+        throw new Error(e.message);
     }
-
-    console.log(`Question avec l'ID '${questionId}' mise à jour avec succès.`);
 }
 
-// Fonction pour supprimer une question de la collection 'questions'
-async function deleteQuestion(questionId) {
-    const db = await connectToDatabase();
-    const collection = db.collection('questions');
 
-    // Suppression de la question basée sur l'ID
-    const result = await collection.deleteOne({ questionId: questionId });
-
-    if (result.deletedCount === 0) {
-        console.log(`Aucune question trouvée avec l'ID '${questionId}'`);
-        return;
+async function listerQuestion() {
+    try {
+        const result = await collectionQuestion.find({}).toArray();
+        console.log("Les résultats:", result);
+    } catch (e) {
+        throw new Error(e.message);
     }
+}
 
-    console.log(`Question avec l'ID '${questionId}' supprimée avec succès.`);
+async function modifierQuestion(questionId, updateData) {
+    try {
+        const id = parseInt(questionId, 10);
+
+        const existingQuestion = await collectionQuestion.findOne({
+            questionId: id,
+        });
+        if (existingQuestion) {
+            await collectionQuestion.updateOne(
+                { questionId: id },
+                { $set: updateData }
+            );
+            console.log(`Document ${id} est modifié avec succès.`);
+        } else {
+            console.log(`Erreur: Le document avec questionId ${id} n'existe pas.`);
+        }
+    } catch (e) {
+        throw new Error(e.message);
+    }
+}
+
+
+async function supprimerQuestion(questionId) {
+    try {
+        const id = parseInt(questionId, 10);
+
+        const existingQuestion = await collectionQuestion.findOne({
+            questionId: id,
+        });
+        if (existingQuestion) {
+            await collectionQuestion.deleteOne({ questionId: id });
+            console.log(`Document ${id} a été supprimé avec succès.`);
+        } else {
+            console.log(`Erreur: Le document avec questionId ${id} n'existe pas.`);
+        }
+    } catch (e) {
+        throw new Error(e.message);
+    }
 }
 
 module.exports = {
-    insertQuestion,
-    getAllQuestions,
-    updateQuestion,
-    deleteQuestion
+    ajouterQuestion,
+    listerQuestion,
+    modifierQuestion,
+    supprimerQuestion,
 };

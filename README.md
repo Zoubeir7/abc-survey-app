@@ -4,158 +4,6 @@
 
 Survey App est une application JavaScript simple permettant de gérer les fiches d'enquête de satisfaction des clients. L'application utilise une base de données MongoDB pour stocker les données et permet d'effectuer des opérations CRUD (Create, Read, Update, Delete) sur ces fiches.
 
-## Documentation des Fonctions
-
-
-### `fichierModule`
-
-#### `insertFile({
-          "name": "string",
-          "description": "string",
-          "createdAt": "ISODate",
-          "createdBy": {
-            "employeeName": "string",
-            "employeeRole": "string"
-          })`
-- **Description :** Insère un nouveau fichier dans la collection `fichiers`.
-- **Paramètre :** : la fonction prend en parametre un object
- 
-
-#### `getAllFiles()`
-- **Description :** Récupère tous les fichiers de la collection `fichiers`.
-- **Retourne :** 
-  - `Array` - la fonction retourne un table de Liste de tous les fichiers.
-    ```json
-    [
-      {
-        "name": "string",
-        "description": "string",
-        "createdAt": "ISODate",
-        "createdBy": {
-          "employeeName": "string",
-          "employeeRole": "string"
-        }
-      }
-    ]
-    ```
-
-#### `updateFile( fileName: "string",   
-{
-        "name": "string",
-        "description": "string",
-        "createdAt": "ISODate",
-        "createdBy": {
-          "employeeName": "string",
-          "employeeRole": "string"
-        }
-      } )`
-- **Description :** Met à jour un fichier existant dans la collection `fichiers`.
-- **Paramètres :** 
-  - `filename` : nom du fichier à mettre à jour.
-  - `updateData`: Données à mettre à jour.
-
-#### `deleteFile(filename:"string")`
-- **Description :** Supprime un fichier de la collection `fichiers`.
-- **Paramètre :** 
-  - `filename` Identifiant du fichier à supprimer.
-
-### `questionModule`
-
-#### `insertQuestion("fileName":"String", {
-      "questionId": "number",
-      "title": "string",
-      "type": "string",
-      "options": {
-        "minValue": "number",
-        "maxValue": "number",
-        "step": "number"
-      })`
-- **Description :** Insère une nouvelle question dans la collection `questions`.
-- **Paramètres :** 
-  - `fileName`  Nom du fichier associé.
-  - `questionData` Données de la question à insérer, y compris `questionId` .
-    
-
-#### `getAllQuestions()`
-- **Description :** Récupère toutes les questions de la collection `questions`.
-- **Retourne :** 
-  - `Array` - Liste de toutes les questions.
-    ```json
-    [
-      {
-        "questionId": "number",
-        "title": "string",
-        "type": "string",
-        "options": {
-          "minValue": "number",
-          "maxValue": "number",
-          "step": "number",
-          "fileName":"String"
-        }
-      }
-    ]
-    ```
-
-#### `updateQuestion (questionId:"string",  {
-        "questionId": "number",
-        "title": "string",
-        "type": "string",
-        "options": {
-          "minValue": "number",
-          "maxValue": "number",
-          "step": "number",}})`
-
-- **Description :** Met à jour une question existante dans la collection `questions`.
-- **Paramètres :** 
-  - `questionId` Identifiant de la question à mettre à jour.
-  - `newQuestionData` Données mises à jour de la question qui sont des objets.
-
-#### `deleteQuestion(questionId: Number)`
-- **Description :** Supprime une question de la collection `questions`.
-- **Paramètre :** 
-  - `questionId` Identifiant de la question à supprimer.
-
-### `reponseModule`
-
-#### `insertReponse(questionId:number, {
-      "reponseId": "number",
-      "title": "string"
-    })`
-- **Description :** Insère une nouvelle réponse pour une question dans la collection `reponses`.
-- **Paramètres :** 
-  - `questionId`  Identifiant de la question associée.
-  - `reponseData` Données de la réponse à insérer, y compris `reponseId` qui est un Objet.
-   
-
-#### `getReponsesByQuestionId(questionId:number)`
-- **Description :** Récupère toutes les réponses pour une question spécifique.
-- **Paramètre :** 
-  - `questionId` Identifiant de la question.
-- **Retourne :** 
-  - `Array` - Liste des réponses pour la question spécifiée.
-  {
-    "reponseId":"number" ,
-    title: "string",
-    "questionId":"number"
-}
-
-
-#### `updateReponse(reponseId:number, {
-            title: "Satisfait"
-        };)`
-- **Description :** Met à jour une réponse existante dans la collection `reponses`.
-- **Paramètres :** 
-  - `reponseId`  Identifiant de la réponse à mettre à jour.
-  - `newReponseData` Données mises à jour de la réponse qui est un Objet.
-
-#### `deleteReponse(reponseId:number)`
-- **Description :** Supprime une réponse de la collection `reponses`.
-- **Paramètre :** 
-  - `reponseId`  Identifiant de la réponse à supprimer.
-
-### `index`
-
-- **Description :** - est l'entrée principale de l'application. Il contient une fonction principale main qui englobe l'appel de toutes les fonctions des différents modules
 
 
 ## Prérequis
@@ -192,6 +40,7 @@ Suivez ces étapes pour configurer le projet sur votre machine locale :
     - Assurez-vous que MongoDB est en cours d'exécution sur votre machine locale.
     - Mettez les paramètres de connexion dans `config/database.js`.
 
+
 ## Utilisation
 
 Pour démarrer l'application, exécutez la commande suivante :
@@ -199,6 +48,39 @@ Pour démarrer l'application, exécutez la commande suivante :
 ```bash
 npm start
 ```
+
+## Documentation des Fonctions
+
+ 
+- **surveyModule.js :** Ce module permet de gérer les opérations **CRUD** de la collection **fichiers**. Il est composé des fonctions suivantes :
+
+  1. `ajoutSurvey({name: string, description: string, createdAt: date}, createdBy:{employeeName: string, employeeRole: string})` : pour ajouter un document dans la collection de **surveys**.
+  2. `listerSurvey()` : pour afficher tous les documents de la collection de **surveys**.
+  3. `modifierSurvey(surveyName, {name: string, description: string, createdAt: date}, createdBy:{employeeName: string, employeeRole: string}) ` : pour modifier un document de la collection de **surveys**.
+  4. `supprimerSurvey(surveyName: string)` : pour supprimer un document de la collection de **surveys**.
+
+
+- **questionModule.js :** Ce module permet de gérer les opérations **CRUD** de la collection **question**. Il est composé des fonctions suivantes :
+
+  1. `ajouterQuestion({questionId: int, title: string, type: string, option: int,surveyName:string})` : pour ajouter un document dans la collection de **questions**.
+  2. `listerQuestions()` : pour afficher tous les documents dans la collection de **questions**.
+  3. `modifierQuestion(questionId:int, {surveyName:string name: string, type: string, option: int} )` : pour modifier un document dans la collection de **questions**.
+  4. `supprimerQuestion(questionId: int)` : pour supprimer un document dans la collection de **questions**.
+
+
+- **ReponseModule.js :** Ce module permet de gérer les opérations **CRUD** de la collection **reponses**. Il est composé des fonctions suivantes :
+
+
+  1. ` ajouterReponse({ questionId: int,reponseId: int, title: string})` : Pour ajouter un document dans la collection de **reponses**.
+  2. `listerReponses()` : Pour afficher tous les documents dans la collection de **reponses**.
+  3. `modifierReponse(reponseId: int, {questionId: int, title: string})` : Pour modifier un document dans la collection de **reponses**.
+  4. `supprimerReponse(reponseId: int,)` : Pour supprimer un document dans la collection de **reponses**.
+
+`  Il est important de noté que les fonctions ne peuvent prendre à l'entré qu'un seul document à la fois.`
+
+
+- **index.js :** est l'entrée principale de l'application. Il contient une fonction principale **main** qui englobe l'appel de toutes les fonctions des différents modules.
+
 
 ## Auteur
 
