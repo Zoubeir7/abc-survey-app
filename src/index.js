@@ -30,8 +30,9 @@ const question = {
 const reponse = { reponseId: 1, questionId: 1, title: "Très satisfait" };
 
 
+
 async function main() {
-    console.log("=== Test Survey ===");
+    console.log("================== Test Survey=============");
 
     await ajoutSurvey(survey);
 
@@ -42,7 +43,7 @@ async function main() {
     await supprimerSurvey();
 
 
-    console.log("=== Test des questions ===");
+    console.log("===r============Test des questions ========");
 
 
     await ajouterQuestion(question);
@@ -57,7 +58,7 @@ async function main() {
     await supprimerQuestion();
 
 
-    console.log("=== Test des réponses ===");
+    console.log("===========Test des réponses ===============");
 
 
     await ajouterReponse(reponse.questionId, reponse);
@@ -70,6 +71,7 @@ async function main() {
 
 
     await supprimerReponse(1);
+
     process.exit();
 
 }

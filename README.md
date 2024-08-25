@@ -64,7 +64,7 @@ npm start
 
   1. `ajouterQuestion({questionId: int, surveyId: int, title: string, type: string, options:{minValue:int, maxValue:int, step:int}})` : pour ajouter un document dans la collection de **questions**.
   2. `listerQuestions()` : pour afficher tous les documents dans la collection de **questions**.
-  3. `modifierQuestion(questionId: int, {surveyId:i nt,  title: string, type: string, options:{minValue:int, maxValue:int, step:int}})` : pour modifier un document dans la collection de **questions**.
+  3. `modifierQuestion(questionId: int, {surveyId:int,  title: string, type: string, options:{minValue:int, maxValue:int, step:int}})` : pour modifier un document dans la collection de **questions**.
   4. `supprimerQuestion(questionId: int)` : pour supprimer un document dans la collection de **questions**.
 
 
