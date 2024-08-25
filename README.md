@@ -62,9 +62,9 @@ npm start
 
 - **questionModule.js :** Ce module permet de gérer les opérations **CRUD** de la collection **question**. Il est composé des fonctions suivantes :
 
-  1. `ajouterQuestion({questionId: int, surveyId: int, title: string, type: string, option:{minValue:int, maxValue:int, step:int}})` : pour ajouter un document dans la collection de **questions**.
+  1. `ajouterQuestion({questionId: int, surveyId: int, title: string, type: string, options:{minValue:int, maxValue:int, step:int}})` : pour ajouter un document dans la collection de **questions**.
   2. `listerQuestions()` : pour afficher tous les documents dans la collection de **questions**.
-  3. `modifierQuestion(questionId:int, {surveyId:int,  type: string, option:{minValue:int, maxValue:int, step:int}} )` : pour modifier un document dans la collection de **questions**.
+  3. `modifierQuestion(questionId:int, {surveyId:int,  title: string type: string, options:{minValue:int, maxValue:int, step:int}} )` : pour modifier un document dans la collection de **questions**.
   4. `supprimerQuestion(questionId: int)` : pour supprimer un document dans la collection de **questions**.
 
 

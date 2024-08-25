@@ -1,4 +1,4 @@
-const { client, db } = require("./config/database");
+const { db } = require("./config/database");
 const collectionSurvey = db.collection("surveys");
 
 async function generateUniqueSurveyId(collectionSurvey) {
@@ -12,7 +12,7 @@ async function generateUniqueSurveyId(collectionSurvey) {
 
 async function ajoutSurvey(document) {
     try {
-      
+
         document.surveyId = await generateUniqueSurveyId(collectionSurvey);
         await collectionSurvey.insertOne(document);
         console.log('Sondage ajouté avec succès.');
