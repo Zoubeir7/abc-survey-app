@@ -54,17 +54,17 @@ npm start
  
 - **surveyModule.js :** Ce module permet de gérer les opérations **CRUD** de la collection **Surveys**. Il est composé des fonctions suivantes :
 
-  1. `ajoutSurvey({ surveyId:int ,name: string, description: string, createdAt: date}, createdBy:{employeeName: string, employeeRole: string})` : pour ajouter un document dans la collection de **surveys**.
+  1. `ajoutSurvey({ surveyId:int ,name: string, description: string, createdAt: date}, createdBy:{employeeName: string, employeeRole: string}})` : pour ajouter un document dans la collection de **surveys**.
   2. `listerSurvey()` : pour afficher tous les documents de la collection de **surveys**.
-  3. `modifierSurvey(surveyId: int , {name: string, description: string, createdAt: date}, createdBy:{employeeName: string, employeeRole: string}) ` : pour modifier un document de la collection de **surveys**.
+  3. `modifierSurvey(surveyId: int , {name: string, description: string, createdAt: date}, createdBy:{employeeName: string, employeeRole: string}}) ` : pour modifier un document de la collection de **surveys**.
   4. `supprimerSurvey(surveyId: int )` : pour supprimer un document de la collection de **surveys**.
 
 
-- **questionModule.js :** Ce module permet de gérer les opérations **CRUD** de la collection **question**. Il est composé des fonctions suivantes :
+- **questionModule.js :** Ce module permet de gérer les opérations **CRUD** de la collection **questions**. Il est composé des fonctions suivantes :
 
   1. `ajouterQuestion({questionId: int, surveyId: int, title: string, type: string, options:{minValue:int, maxValue:int, step:int}})` : pour ajouter un document dans la collection de **questions**.
   2. `listerQuestions()` : pour afficher tous les documents dans la collection de **questions**.
-  3. `modifierQuestion(questionId:int, {surveyId:int,  title: string type: string, options:{minValue:int, maxValue:int, step:int}} )` : pour modifier un document dans la collection de **questions**.
+  3. `modifierQuestion(questionId: int, {surveyId:i nt,  title: string, type: string, options:{minValue:int, maxValue:int, step:int}})` : pour modifier un document dans la collection de **questions**.
   4. `supprimerQuestion(questionId: int)` : pour supprimer un document dans la collection de **questions**.
 
 
