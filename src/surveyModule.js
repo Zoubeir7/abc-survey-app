@@ -1,23 +1,27 @@
 const { client, db } = require("./config/database");
 const collectionSurvey = db.collection("surveys");
 
+async function generateUniqueSurveyId(collectionSurvey) {
+    const lastSurvey = await collectionSurvey
+        .find({})
+        .sort({ surveyId: -1 })
+        .limit(1)
+        .toArray();
+    return lastSurvey.length > 0 ? lastSurvey[0].surveyId + 1 : 1;
+}
 
 async function ajoutSurvey(document) {
     try {
+        // Générer un ID unique pour le sondage
+        document.surveyId = await generateUniqueSurveyId(collectionSurvey);
 
-        const existingSurvey = await collectionSurvey.findOne({ name: document.name });
-        if (existingSurvey) {
-            console.log(`Un sondage avec le nom '${document.name}' existe déjà.`);
-            return;
-        }
-
+        // Insérer le nouveau sondage avec l'ID généré
         await collectionSurvey.insertOne(document);
         console.log('Sondage ajouté avec succès.');
     } catch (e) {
         throw new Error(e.message);
     }
 }
-
 
 async function listerSurvey() {
     try {
@@ -28,29 +32,31 @@ async function listerSurvey() {
     }
 }
 
-
-async function modifierSurvey(surveyName, updateData) {
+async function modifierSurvey(surveyId, updateData) {
     try {
+        const id = parseInt(surveyId, 10);
+
         const result = await collectionSurvey.updateOne(
-            { name: surveyName },
+            { surveyId: id },
             { $set: updateData }
         );
         if (result.matchedCount > 0) {
-            console.log(`le document mis à jour avec succès.`);
+            console.log(`Le document mis à jour avec succès.`);
         } else {
             console.log('Le document que vous tentez de modifier n\'existe pas.');
         }
     } catch (error) {
-        throw new Error(e.message);
+        throw new Error(error.message);
     }
 }
 
-
-async function supprimerSurvey(surveyName) {
+async function supprimerSurvey(surveyId) {
     try {
-        const result = await collectionSurvey.deleteOne({ name: surveyName });
+        const id = parseInt(surveyId, 10);
+
+        const result = await collectionSurvey.deleteOne({ surveyId: id });
         if (result.deletedCount > 0) {
-            console.log('le document supprimé avec succès.');
+            console.log('Le document supprimé avec succès.');
         } else {
             console.log('Le document que vous tentez de supprimer n\'existe pas.');
         }

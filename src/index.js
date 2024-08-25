@@ -4,21 +4,27 @@ const { ajouterReponse, listerReponses, modifierReponse, supprimerReponse } = re
 
 
 const survey = {
+    surveyId: 1,
     name: "Enquête de Satisfaction 001",
     description: "Enquête visant à évaluer la satisfaction des clients concernant nos services.",
     createdAt: "2024-07-25T08:00:00Z",
     createdBy: {
         employeeName: "Jane Smith",
         employeeRole: "Responsable du service client",
-    },
+    }
 };
 
 const question = {
     questionId: 1,
+    surveyId: 1,
     title: "Comment évalueriez-vous notre service ?",
     type: "rating",
-    option: 4,
-    surveyName: "Enquête de Satisfaction 001"
+    option: {
+        inValue: 1,
+        maxValue: 5,
+        step: 1
+    }
+
 };
 
 const reponse = { reponseId: 1, questionId: 1, title: "Très satisfait" };
@@ -63,8 +69,8 @@ async function main() {
     await modifierReponse(reponse.reponseId, { title: "Satisfait" });
 
 
-    await supprimerReponse(reponse.reponseId);
-
+    await supprimerReponse(1);
+    process.exit();
 
 }
 
