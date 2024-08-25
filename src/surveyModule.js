@@ -12,10 +12,8 @@ async function generateUniqueSurveyId(collectionSurvey) {
 
 async function ajoutSurvey(document) {
     try {
-        // Générer un ID unique pour le sondage
+      
         document.surveyId = await generateUniqueSurveyId(collectionSurvey);
-
-        // Insérer le nouveau sondage avec l'ID généré
         await collectionSurvey.insertOne(document);
         console.log('Sondage ajouté avec succès.');
     } catch (e) {

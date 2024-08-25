@@ -52,7 +52,7 @@ npm start
 ## Documentation des Fonctions
 
  
-- **surveyModule.js :** Ce module permet de gérer les opérations **CRUD** de la collection **fichiers**. Il est composé des fonctions suivantes :
+- **surveyModule.js :** Ce module permet de gérer les opérations **CRUD** de la collection **Surveys**. Il est composé des fonctions suivantes :
 
   1. `ajoutSurvey({ surveyId:int ,name: string, description: string, createdAt: date}, createdBy:{employeeName: string, employeeRole: string})` : pour ajouter un document dans la collection de **surveys**.
   2. `listerSurvey()` : pour afficher tous les documents de la collection de **surveys**.
