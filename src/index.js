@@ -68,7 +68,7 @@ async function main() {
     await listerReponses();
 
 
-    await modifierReponse(reponse.reponseId, { title: "Satisfait" });
+    await modifierReponse(1, { title: "Satisfait" });
 
 
     await supprimerReponse();
