@@ -1,21 +1,30 @@
 const { client, db } = require("./config/database");
 
 const collectionQuestion = db.collection("questions");
+const collectionSurvey = db.collection("surveys");
 
 async function ajouterQuestion(document) {
     try {
-        const questionExiste = await collectionQuestion.findOne({ questionId: document.questionId });
+       
+        const surveyExiste = await collectionSurvey.findOne({ surveyId: document.surveyId });
 
-        if (questionExiste) {
-            console.log('Une question avec cet ID existe déjà.');
+        if (!surveyExiste) {
+            console.log(`Le survey avec l'ID ${document.surveyId} n'existe pas.`);
         } else {
-            await collectionQuestion.insertOne(document);
-            console.log(`Le document ${document.questionId} a été ajouté avec succès.`);
+            const questionExiste = await collectionQuestion.findOne({ questionId: document.questionId });
+
+            if (questionExiste) {
+                console.log('Une question avec cet ID existe déjà.');
+            } else {
+                await collectionQuestion.insertOne(document);
+                console.log(`Le document ${document.questionId} a été ajouté avec succès.`);
+            }
         }
     } catch (e) {
         throw new Error(e.message);
     }
 }
+
 
 async function listerQuestion() {
     try {

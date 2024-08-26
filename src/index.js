@@ -16,7 +16,7 @@ const survey = {
 
 const question = {
     questionId: 1,
-    surveyId: 1,
+    surveyId: 5,
     title: "Comment évalueriez-vous notre service ?",
     type: "rating",
     options: {
@@ -27,7 +27,7 @@ const question = {
 
 };
 
-const reponse = { reponseId: 1, questionId: 1, title: "Très satisfait" };
+const reponse = { reponseId: 1, questionId: 5, title: "Très satisfait" };
 
 
 

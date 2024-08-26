@@ -64,7 +64,7 @@ npm start
 
   1. `ajouterQuestion({questionId: int, surveyId: int, title: string, type: string, options:{minValue:int, maxValue:int, step:int}})` : pour ajouter un document dans la collection de **questions**.
   2. `listerQuestions()` : pour afficher tous les documents dans la collection de **questions**.
-  3. `modifierQuestion(questionId: int, {surveyId:int,  title: string, type: string, options:{minValue:int, maxValue:int, step:int}})` : pour modifier un document dans la collection de **questions**.
+  3. `modifierQuestion(questionId: int, {title: string, type: string, options:{minValue:int, maxValue:int, step:int}})` : pour modifier un document dans la collection de **questions**.
   4. `supprimerQuestion(questionId: int)` : pour supprimer un document dans la collection de **questions**.
 
 
@@ -73,7 +73,7 @@ npm start
 
   1. ` ajouterReponse({ questionId: int,reponseId: int, title: string})` : Pour ajouter un document dans la collection de **reponses**.
   2. `listerReponses()` : Pour afficher tous les documents dans la collection de **reponses**.
-  3. `modifierReponse(reponseId: int, {questionId: int, title: string})` : Pour modifier un document dans la collection de **reponses**.
+  3. `modifierReponse(reponseId: int, {title: string})` : Pour modifier un document dans la collection de **reponses**.
   4. `supprimerReponse(reponseId: int,)` : Pour supprimer un document dans la collection de **reponses**.
 
 `  Il est important de noté que les fonctions ne peuvent prendre à l'entré qu'un seul document à la fois.`

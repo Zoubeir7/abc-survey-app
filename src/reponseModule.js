@@ -1,14 +1,20 @@
 const { db } = require('./config/database');
 
 const collectionReponse = db.collection('reponses');
+const collectionQuestion = db.collection('questions');
 
 async function ajouterReponse(questionId, reponseData) {
     try {
-        reponseData.questionId = questionId;
 
-        const existingReponse = await collectionReponse.findOne({
-            questionId: questionId,
-        });
+        const questionExiste = await collectionQuestion.findOne({ questionId: questionId });
+
+        if (!questionExiste) {
+            console.log(`La question avec l'ID '${questionId}' n'existe pas.`);
+            return;
+        }
+
+        reponseData.questionId = questionId;
+        const existingReponse = await collectionReponse.findOne({ questionId: questionId });
 
         if (existingReponse) {
             console.log(`Une réponse existe déjà pour la question ID '${questionId}'.`);
@@ -20,7 +26,6 @@ async function ajouterReponse(questionId, reponseData) {
         throw new Error(e.message);
     }
 }
-
 async function listerReponses(questionId) {
     try {
         const reponses = await collectionReponse.find({ questionId: questionId }).toArray();
