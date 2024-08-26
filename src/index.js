@@ -16,7 +16,7 @@ const survey = {
 
 const question = {
     questionId: 1,
-    surveyId: 5,
+    surveyId: 1,
     title: "Comment évalueriez-vous notre service ?",
     type: "rating",
     options: {
@@ -27,7 +27,7 @@ const question = {
 
 };
 
-const reponse = { reponseId: 1, questionId: 5, title: "Très satisfait" };
+const reponse = { reponseId: 1, questionId: 1, title: "Très satisfait" };
 
 
 
@@ -62,10 +62,10 @@ async function main() {
     console.log("===========Test des réponses ===============");
 
 
-    await ajouterReponse(reponse.questionId, reponse);
+    await ajouterReponse(reponse);
 
 
-    await listerReponses(reponse.questionId);
+    await listerReponses();
 
 
     await modifierReponse(reponse.reponseId, { title: "Satisfait" });
