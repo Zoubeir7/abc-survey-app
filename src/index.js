@@ -32,13 +32,14 @@ const reponse = { reponseId: 1, questionId: 1, title: "Très satisfait" };
 
 
 async function main() {
+
     console.log("================== Test Survey=============");
 
     await ajoutSurvey(survey);
 
     await listerSurvey();
 
-    await modifierSurvey("Enquête de Satisfaction 001", { description: "Enquête mise à jour" });
+    await modifierSurvey(1, { description: "Enquête mise à jour" });
 
     await supprimerSurvey();
 
@@ -70,7 +71,7 @@ async function main() {
     await modifierReponse(reponse.reponseId, { title: "Satisfait" });
 
 
-    await supprimerReponse(1);
+    await supprimerReponse();
 
     process.exit();
 

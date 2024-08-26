@@ -1,64 +1,74 @@
 const { db } = require('./config/database');
 
+const collectionReponse = db.collection('reponses');
+
 async function ajouterReponse(questionId, reponseData) {
-    const collection = db.collection('reponses');
-    reponseData.questionId = questionId;
+    try {
+        reponseData.questionId = questionId;
 
-    const existingReponse = await collection.findOne({
-        questionId: questionId,
-        title: reponseData.title
-    });
+        const existingReponse = await collectionReponse.findOne({
+            questionId: questionId,
+        });
 
-    if (existingReponse) {
-        console.log(`Une réponse avec le titre '${reponseData.title}' existe déjà pour la question ID '${questionId}'.`);
-        return;
+        if (existingReponse) {
+            console.log(`Une réponse existe déjà pour la question ID '${questionId}'.`);
+        } else {
+            await collectionReponse.insertOne(reponseData);
+            console.log(`Réponse insérée avec succès pour la question ID: ${questionId}, réponse ID: ${reponseData.reponseId}`);
+        }
+    } catch (e) {
+        throw new Error(e.message);
     }
-
-    await collection.insertOne(reponseData);
-    console.log(`Réponse insérée avec l'ID: ${reponseData.reponseId}`);
 }
 
 async function listerReponses(questionId) {
-    const collection = db.collection('reponses');
-    const reponses = await collection.find({ questionId: questionId }).toArray();
+    try {
+        const reponses = await collectionReponse.find({ questionId: questionId }).toArray();
 
-    console.log(`Réponses pour la question ID '${questionId}':`);
+        if (reponses.length > 0) {
+            console.log(`Réponses pour la question ID '${questionId}':`);
+            reponses.forEach(reponse => {
+                console.log(JSON.parse(JSON.stringify(reponse)));
+            });
+        } else {
+            console.log(`Aucune réponse trouvée pour la question ID '${questionId}'.`);
+        }
 
-  
-    reponses.forEach(reponse => {
-        console.log(JSON.parse(JSON.stringify(reponse)));
-    });
-
-    return reponses;
+        return reponses;
+    } catch (e) {
+        throw new Error(e.message);
+    }
 }
 
-async function modifierReponse(reponseId, updatedData) {
-    const collection = db.collection('reponses');
+async function modifierReponse(questionId, updatedData) {
+    try {
+        const result = await collectionReponse.updateOne(
+            { questionId: questionId },
+            { $set: updatedData }
+        );
 
-    const result = await collection.updateOne(
-        { reponseId: reponseId },
-        { $set: updatedData }
-    );
-
-    if (result.matchedCount === 0) {
-        console.log(`Aucune réponse trouvée avec l'ID '${reponseId}'`);
-        return;
+        if (result.matchedCount > 0) {
+            console.log(`Réponse mise à jour avec succès pour la question ID '${questionId}'.`);
+        } else {
+            console.log(`Le document que vous tentez de modifier n'existe pas.`);
+        }
+    } catch (e) {
+        throw new Error(e.message);
     }
-
-    console.log(`Réponse a mise à jour avec succès.`);
 }
 
-async function supprimerReponse(reponseId) {
-    const collection = db.collection('reponses');
+async function supprimerReponse(questionId) {
+    try {
+        const result = await collectionReponse.deleteOne({ questionId: Number(questionId) });
 
-    const result = await collection.deleteOne({ reponseId: Number(reponseId) });
-
-    if (result.deletedCount === 0) {
-        console.log(`Aucune réponse trouvée avec l'ID '${reponseId}'`);
-        return;
+        if (result.deletedCount > 0) {
+            console.log(`Réponse supprimée avec succès pour la question ID '${questionId}'.`);
+        } else {
+            console.log(`Le document que vous tentez de supprimer n'existe pas.`);
+        }
+    } catch (e) {
+        throw new Error(e.message);
     }
-
-    console.log(`Réponse  supprimée avec succès.`);
 }
 
 module.exports = {

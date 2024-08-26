@@ -1,21 +1,17 @@
 const { db } = require("./config/database");
 const collectionSurvey = db.collection("surveys");
 
-async function generateUniqueSurveyId(collectionSurvey) {
-    const lastSurvey = await collectionSurvey
-        .find({})
-        .sort({ surveyId: -1 })
-        .limit(1)
-        .toArray();
-    return lastSurvey.length > 0 ? lastSurvey[0].surveyId + 1 : 1;
-}
-
 async function ajoutSurvey(document) {
     try {
 
-        document.surveyId = await generateUniqueSurveyId(collectionSurvey);
-        await collectionSurvey.insertOne(document);
-        console.log('Sondage ajouté avec succès.');
+        const surveyExiste = await collectionSurvey.findOne({ surveyId: document.surveyId });
+
+        if (surveyExiste) {
+            console.log('le document avec cet ID existe déjà.');
+        } else {
+            await collectionSurvey.insertOne(document);
+            console.log('le document ajouté avec succès.');
+        }
     } catch (e) {
         throw new Error(e.message);
     }
@@ -24,7 +20,7 @@ async function ajoutSurvey(document) {
 async function listerSurvey() {
     try {
         const surveys = await collectionSurvey.find({}).toArray();
-        console.log("Sondages récupérés:", surveys);
+        console.log(" Voici les documents:", surveys);
     } catch (e) {
         throw new Error(e.message);
     }
@@ -39,7 +35,7 @@ async function modifierSurvey(surveyId, updateData) {
             { $set: updateData }
         );
         if (result.matchedCount > 0) {
-            console.log(`Le document mis à jour avec succès.`);
+            console.log('Le document mis à jour avec succès.');
         } else {
             console.log('Le document que vous tentez de modifier n\'existe pas.');
         }

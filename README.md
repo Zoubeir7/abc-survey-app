@@ -2,7 +2,7 @@
 
 ## Description
 
-Survey App est une application JavaScript simple permettant de gérer les fiches d'enquête de satisfaction des clients. L'application utilise une base de données MongoDB pour stocker les données et permet d'effectuer des opérations CRUD (Create, Read, Update, Delete) sur ces fiches.
+Survey App est une application JavaScript simple permettant de gérer les fiches d'enquête de satisfaction des clients. L'application utilise une base de données MongoDB pour stocker les données et permet d'effectuer des opérations CRUD (Create, Read, Update, Delete) sur ces fichiers.
 
 
 
@@ -56,7 +56,7 @@ npm start
 
   1. `ajoutSurvey({ surveyId:int ,name: string, description: string, createdAt: date}, createdBy:{employeeName: string, employeeRole: string}})` : pour ajouter un document dans la collection de **surveys**.
   2. `listerSurvey()` : pour afficher tous les documents de la collection de **surveys**.
-  3. `modifierSurvey(surveyId: int , {name: string, description: string, createdAt: date}, createdBy:{employeeName: string, employeeRole: string}}) ` : pour modifier un document de la collection de **surveys**.
+  3. `modifierSurvey(surveyId: int ,{name: string, description: string, createdAt: date}, createdBy:{employeeName: string, employeeRole: string}}) ` : pour modifier un document de la collection de **surveys**.
   4. `supprimerSurvey(surveyId: int )` : pour supprimer un document de la collection de **surveys**.
 
 
